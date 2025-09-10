@@ -7,19 +7,21 @@
   <style>
     body {
       margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f4f4;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('https://images.unsplash.com/photo-1584697964192-06634c694c96?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
+      background-size: cover;
+      color: #333;
     }
 
     header {
-      background-color: #007BFF;
+      background-color: rgba(0, 123, 255, 0.9);
       color: white;
       padding: 1rem;
       text-align: center;
     }
 
     nav {
-      background: #343a40;
+      background: rgba(0, 0, 0, 0.7);
       color: white;
       display: flex;
       justify-content: space-between;
@@ -42,9 +44,12 @@
       max-width: 1100px;
       margin: auto;
       padding: 20px;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 8px;
+      margin-top: 20px;
     }
 
-    .subject, .profile-section, .cart {
+    .subject, .profile-section, .cart, .video-class {
       background: white;
       padding: 20px;
       margin-bottom: 20px;
@@ -68,21 +73,20 @@
     }
 
     .material button {
-      padding: 5px 10px;
+      padding: 6px 12px;
       margin-left: 10px;
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      color: white;
     }
 
     .download {
       background-color: #17a2b8;
-      color: white;
     }
 
     .buy {
       background-color: #28a745;
-      color: white;
     }
 
     .cart ul {
@@ -100,10 +104,6 @@
       margin-top: 10px;
     }
 
-    .profile-section h3 {
-      margin-top: 0;
-    }
-
     .profile-section input {
       padding: 8px;
       width: 100%;
@@ -112,10 +112,18 @@
       border-radius: 4px;
     }
 
+    .video-class video {
+      width: 100%;
+      max-height: 400px;
+      border-radius: 8px;
+    }
+
     footer {
       text-align: center;
       padding: 20px;
-      color: #888;
+      color: white;
+      background: rgba(0, 0, 0, 0.6);
+      margin-top: 20px;
     }
 
     @media (max-width: 600px) {
@@ -133,30 +141,28 @@
 <body>
 
   <header>
-    <h1>Student Study Dashboard</h1>
-    <p>Affordable PDFs | Search | Profile Settings</p>
+    <h1>📘 Student Study Dashboard</h1>
+    <p>Access PDFs, Watch Video Classes, Update Profile</p>
   </header>
 
   <nav>
-    <div>
-      <strong>📚 StudyHub</strong>
-    </div>
-    <input type="text" id="searchBox" placeholder="Search study materials..." oninput="filterMaterials()" />
+    <div><strong>StudyHub</strong></div>
+    <input type="text" id="searchBox" placeholder="Search materials..." oninput="filterMaterials()" />
     <div class="profile" onclick="toggleProfile()">👤 Profile</div>
   </nav>
 
   <div class="container">
 
-    <!-- Subjects & Materials -->
+    <!-- 📚 Materials Section -->
     <div id="materialsSection">
       <div class="subject" data-title="Mathematics Algebra Calculus">
         <h3>Mathematics</h3>
         <div class="material">
-          <span>Algebra Basics - Free</span>
+          <span>📄 Algebra Basics - Free</span>
           <button class="download" onclick="downloadPDF('algebra.pdf')">Download</button>
         </div>
         <div class="material">
-          <span>Calculus Advanced - ₹30</span>
+          <span>📄 Calculus Advanced - ₹30</span>
           <button class="buy" onclick="addToCart('Calculus Advanced PDF', 30)">Add to Cart</button>
         </div>
       </div>
@@ -164,11 +170,11 @@
       <div class="subject" data-title="Science Physics Chemistry">
         <h3>Science</h3>
         <div class="material">
-          <span>Physics Crash Course - ₹20</span>
-          <button class="buy" onclick="addToCart('Physics Crash Course', 20)">Add to Cart</button>
+          <span>📄 Physics Notes - ₹20</span>
+          <button class="buy" onclick="addToCart('Physics Notes PDF', 20)">Add to Cart</button>
         </div>
         <div class="material">
-          <span>Chemistry Summary - Free</span>
+          <span>📄 Chemistry Summary - Free</span>
           <button class="download" onclick="downloadPDF('chemistry.pdf')">Download</button>
         </div>
       </div>
@@ -176,25 +182,34 @@
       <div class="subject" data-title="History Modern">
         <h3>History</h3>
         <div class="material">
-          <span>Modern History Guide - ₹15</span>
-          <button class="buy" onclick="addToCart('Modern History Guide', 15)">Add to Cart</button>
+          <span>📄 Modern History - ₹15</span>
+          <button class="buy" onclick="addToCart('Modern History PDF', 15)">Add to Cart</button>
         </div>
       </div>
     </div>
 
-    <!-- Cart Section -->
+    <!-- 🎥 Video Class -->
+    <div class="video-class">
+      <h3>🎥 Video Class: Introduction to Algebra</h3>
+      <video controls>
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <!-- 🛒 Cart -->
     <div class="cart">
       <h3>🛒 Your Cart</h3>
       <ul id="cartItems"></ul>
       <div class="cart-total" id="cartTotal">Total: ₹0</div>
     </div>
 
-    <!-- Profile Section -->
+    <!-- 👤 Profile -->
     <div class="profile-section" id="profileSection" style="display: none;">
       <h3>👤 Your Profile</h3>
       <input type="text" id="userName" placeholder="Full Name" />
       <input type="email" id="userEmail" placeholder="Email Address" />
-      <input type="text" id="userCourse" placeholder="Course / Class" />
+      <input type="text" id="userCourse" placeholder="Course/Class" />
       <button onclick="saveProfile()" style="background:#007BFF;color:white;padding:10px;border:none;border-radius:4px;">Save Profile</button>
       <p id="profileMessage" style="color:green;display:none;margin-top:10px;">Profile updated!</p>
     </div>
@@ -202,7 +217,7 @@
   </div>
 
   <footer>
-    &copy; 2025 Student Study Hub | Empowering Education
+    &copy; 2025 Student Study Dashboard | Learn More, Pay Less!
   </footer>
 
   <script>
@@ -232,8 +247,7 @@
 
     function downloadPDF(fileName) {
       alert("Downloading: " + fileName);
-      // Replace this with actual file download link if available
-      // window.location.href = `/pdfs/${fileName}`;
+      // In real case, use: window.location.href = `/pdfs/${fileName}`;
     }
 
     function filterMaterials() {
@@ -252,27 +266,4 @@
 
     function saveProfile() {
       const name = document.getElementById('userName').value;
-      const email = document.getElementById('userEmail').value;
-      const course = document.getElementById('userCourse').value;
-
-      if (name && email && course) {
-        localStorage.setItem('userProfile', JSON.stringify({ name, email, course }));
-        document.getElementById('profileMessage').style.display = 'block';
-        setTimeout(() => {
-          document.getElementById('profileMessage').style.display = 'none';
-        }, 2000);
-      }
-    }
-
-    // Load saved profile
-    window.onload = function() {
-      const profile = JSON.parse(localStorage.getItem('userProfile'));
-      if (profile) {
-        document.getElementById('userName').value = profile.name;
-        document.getElementById('userEmail').value = profile.email;
-        document.getElementById('userCourse').value = profile.course;
-      }
-    }
-  </script>
-</body>
-</html>
+     
