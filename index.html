@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Student Study Material Dashboard</title>
+  <title>Student Study Dashboard</title>
   <style>
     body {
       margin: 0;
@@ -18,27 +18,41 @@
       text-align: center;
     }
 
+    nav {
+      background: #343a40;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+    }
+
+    nav input {
+      padding: 6px;
+      width: 250px;
+      border-radius: 4px;
+      border: none;
+    }
+
+    nav .profile {
+      cursor: pointer;
+    }
+
     .container {
-      max-width: 1000px;
+      max-width: 1100px;
       margin: auto;
       padding: 20px;
     }
 
-    h2 {
-      color: #333;
-      margin-top: 40px;
-    }
-
-    .subject {
+    .subject, .profile-section, .cart {
       background: white;
-      margin-bottom: 20px;
       padding: 20px;
+      margin-bottom: 20px;
       border-radius: 6px;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
     .subject h3 {
-      margin-top: 0;
       color: #007BFF;
     }
 
@@ -55,23 +69,20 @@
 
     .material button {
       padding: 5px 10px;
-      background-color: #28a745;
-      color: white;
+      margin-left: 10px;
       border: none;
       border-radius: 4px;
       cursor: pointer;
     }
 
-    .material button.download {
+    .download {
       background-color: #17a2b8;
+      color: white;
     }
 
-    .cart {
-      margin-top: 40px;
-      background-color: white;
-      padding: 20px;
-      border-radius: 6px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    .buy {
+      background-color: #28a745;
+      color: white;
     }
 
     .cart ul {
@@ -80,13 +91,25 @@
     }
 
     .cart li {
-      padding: 10px;
+      padding: 8px 0;
       border-bottom: 1px solid #ddd;
     }
 
     .cart-total {
       font-weight: bold;
       margin-top: 10px;
+    }
+
+    .profile-section h3 {
+      margin-top: 0;
+    }
+
+    .profile-section input {
+      padding: 8px;
+      width: 100%;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
     }
 
     footer {
@@ -96,12 +119,12 @@
     }
 
     @media (max-width: 600px) {
-      .material {
+      nav {
         flex-direction: column;
         align-items: flex-start;
       }
-
-      .material button {
+      nav input {
+        width: 100%;
         margin-top: 10px;
       }
     }
@@ -110,56 +133,76 @@
 <body>
 
   <header>
-    <h1>Student Study Hub</h1>
-    <p>Affordable Study Materials for Every Student</p>
+    <h1>Student Study Dashboard</h1>
+    <p>Affordable PDFs | Search | Profile Settings</p>
   </header>
+
+  <nav>
+    <div>
+      <strong>📚 StudyHub</strong>
+    </div>
+    <input type="text" id="searchBox" placeholder="Search study materials..." oninput="filterMaterials()" />
+    <div class="profile" onclick="toggleProfile()">👤 Profile</div>
+  </nav>
 
   <div class="container">
 
-    <h2>Subjects & Study Materials</h2>
-
-    <div class="subject">
-      <h3>Mathematics</h3>
-      <div class="material">
-        <span>Algebra Basics - Free PDF</span>
-        <button class="download" onclick="downloadPDF('algebra.pdf')">Download</button>
+    <!-- Subjects & Materials -->
+    <div id="materialsSection">
+      <div class="subject" data-title="Mathematics Algebra Calculus">
+        <h3>Mathematics</h3>
+        <div class="material">
+          <span>Algebra Basics - Free</span>
+          <button class="download" onclick="downloadPDF('algebra.pdf')">Download</button>
+        </div>
+        <div class="material">
+          <span>Calculus Advanced - ₹30</span>
+          <button class="buy" onclick="addToCart('Calculus Advanced PDF', 30)">Add to Cart</button>
+        </div>
       </div>
-      <div class="material">
-        <span>Advanced Calculus - ₹30</span>
-        <button onclick="addToCart('Advanced Calculus PDF', 30)">Add to Cart</button>
+
+      <div class="subject" data-title="Science Physics Chemistry">
+        <h3>Science</h3>
+        <div class="material">
+          <span>Physics Crash Course - ₹20</span>
+          <button class="buy" onclick="addToCart('Physics Crash Course', 20)">Add to Cart</button>
+        </div>
+        <div class="material">
+          <span>Chemistry Summary - Free</span>
+          <button class="download" onclick="downloadPDF('chemistry.pdf')">Download</button>
+        </div>
+      </div>
+
+      <div class="subject" data-title="History Modern">
+        <h3>History</h3>
+        <div class="material">
+          <span>Modern History Guide - ₹15</span>
+          <button class="buy" onclick="addToCart('Modern History Guide', 15)">Add to Cart</button>
+        </div>
       </div>
     </div>
 
-    <div class="subject">
-      <h3>Science</h3>
-      <div class="material">
-        <span>Physics Notes - ₹20</span>
-        <button onclick="addToCart('Physics Notes PDF', 20)">Add to Cart</button>
-      </div>
-      <div class="material">
-        <span>Chemistry Summary - Free PDF</span>
-        <button class="download" onclick="downloadPDF('chemistry.pdf')">Download</button>
-      </div>
-    </div>
-
-    <div class="subject">
-      <h3>History</h3>
-      <div class="material">
-        <span>Modern History Guide - ₹15</span>
-        <button onclick="addToCart('Modern History Guide PDF', 15)">Add to Cart</button>
-      </div>
-    </div>
-
+    <!-- Cart Section -->
     <div class="cart">
-      <h2>Your Cart</h2>
+      <h3>🛒 Your Cart</h3>
       <ul id="cartItems"></ul>
       <div class="cart-total" id="cartTotal">Total: ₹0</div>
+    </div>
+
+    <!-- Profile Section -->
+    <div class="profile-section" id="profileSection" style="display: none;">
+      <h3>👤 Your Profile</h3>
+      <input type="text" id="userName" placeholder="Full Name" />
+      <input type="email" id="userEmail" placeholder="Email Address" />
+      <input type="text" id="userCourse" placeholder="Course / Class" />
+      <button onclick="saveProfile()" style="background:#007BFF;color:white;padding:10px;border:none;border-radius:4px;">Save Profile</button>
+      <p id="profileMessage" style="color:green;display:none;margin-top:10px;">Profile updated!</p>
     </div>
 
   </div>
 
   <footer>
-    &copy; 2025 Student Study Hub | Learn. Grow. Succeed.
+    &copy; 2025 Student Study Hub | Empowering Education
   </footer>
 
   <script>
@@ -177,7 +220,7 @@
       cartList.innerHTML = '';
       total = 0;
 
-      cart.forEach((entry, index) => {
+      cart.forEach((entry) => {
         const li = document.createElement('li');
         li.textContent = `${entry.item} - ₹${entry.price}`;
         total += entry.price;
@@ -188,9 +231,47 @@
     }
 
     function downloadPDF(fileName) {
-      alert("Starting download: " + fileName);
-      // In real application, this would be a link to your server
-      // Example: window.location.href = `/pdfs/${fileName}`;
+      alert("Downloading: " + fileName);
+      // Replace this with actual file download link if available
+      // window.location.href = `/pdfs/${fileName}`;
+    }
+
+    function filterMaterials() {
+      const input = document.getElementById('searchBox').value.toLowerCase();
+      const subjects = document.querySelectorAll('.subject');
+      subjects.forEach(subject => {
+        const title = subject.getAttribute('data-title').toLowerCase();
+        subject.style.display = title.includes(input) ? 'block' : 'none';
+      });
+    }
+
+    function toggleProfile() {
+      const profile = document.getElementById('profileSection');
+      profile.style.display = profile.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function saveProfile() {
+      const name = document.getElementById('userName').value;
+      const email = document.getElementById('userEmail').value;
+      const course = document.getElementById('userCourse').value;
+
+      if (name && email && course) {
+        localStorage.setItem('userProfile', JSON.stringify({ name, email, course }));
+        document.getElementById('profileMessage').style.display = 'block';
+        setTimeout(() => {
+          document.getElementById('profileMessage').style.display = 'none';
+        }, 2000);
+      }
+    }
+
+    // Load saved profile
+    window.onload = function() {
+      const profile = JSON.parse(localStorage.getItem('userProfile'));
+      if (profile) {
+        document.getElementById('userName').value = profile.name;
+        document.getElementById('userEmail').value = profile.email;
+        document.getElementById('userCourse').value = profile.course;
+      }
     }
   </script>
 </body>
