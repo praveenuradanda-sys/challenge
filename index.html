@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Study Material Dashboard</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+    }
+
+    header {
+      background-color: #007BFF;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    h2 {
+      color: #333;
+      margin-top: 40px;
+    }
+
+    .subject {
+      background: white;
+      margin-bottom: 20px;
+      padding: 20px;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .subject h3 {
+      margin-top: 0;
+      color: #007BFF;
+    }
+
+    .material {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 0;
+    }
+
+    .material span {
+      flex: 1;
+    }
+
+    .material button {
+      padding: 5px 10px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .material button.download {
+      background-color: #17a2b8;
+    }
+
+    .cart {
+      margin-top: 40px;
+      background-color: white;
+      padding: 20px;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .cart ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .cart li {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .cart-total {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #888;
+    }
+
+    @media (max-width: 600px) {
+      .material {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .material button {
+        margin-top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Student Study Hub</h1>
+    <p>Affordable Study Materials for Every Student</p>
+  </header>
+
+  <div class="container">
+
+    <h2>Subjects & Study Materials</h2>
+
+    <div class="subject">
+      <h3>Mathematics</h3>
+      <div class="material">
+        <span>Algebra Basics - Free PDF</span>
+        <button class="download" onclick="downloadPDF('algebra.pdf')">Download</button>
+      </div>
+      <div class="material">
+        <span>Advanced Calculus - ₹30</span>
+        <button onclick="addToCart('Advanced Calculus PDF', 30)">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="subject">
+      <h3>Science</h3>
+      <div class="material">
+        <span>Physics Notes - ₹20</span>
+        <button onclick="addToCart('Physics Notes PDF', 20)">Add to Cart</button>
+      </div>
+      <div class="material">
+        <span>Chemistry Summary - Free PDF</span>
+        <button class="download" onclick="downloadPDF('chemistry.pdf')">Download</button>
+      </div>
+    </div>
+
+    <div class="subject">
+      <h3>History</h3>
+      <div class="material">
+        <span>Modern History Guide - ₹15</span>
+        <button onclick="addToCart('Modern History Guide PDF', 15)">Add to Cart</button>
+      </div>
+    </div>
+
+    <div class="cart">
+      <h2>Your Cart</h2>
+      <ul id="cartItems"></ul>
+      <div class="cart-total" id="cartTotal">Total: ₹0</div>
+    </div>
+
+  </div>
+
+  <footer>
+    &copy; 2025 Student Study Hub | Learn. Grow. Succeed.
+  </footer>
+
+  <script>
+    let cart = [];
+    let total = 0;
+
+    function addToCart(item, price) {
+      cart.push({ item, price });
+      updateCart();
+    }
+
+    function updateCart() {
+      const cartList = document.getElementById('cartItems');
+      const cartTotal = document.getElementById('cartTotal');
+      cartList.innerHTML = '';
+      total = 0;
+
+      cart.forEach((entry, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${entry.item} - ₹${entry.price}`;
+        total += entry.price;
+        cartList.appendChild(li);
+      });
+
+      cartTotal.textContent = `Total: ₹${total}`;
+    }
+
+    function downloadPDF(fileName) {
+      alert("Starting download: " + fileName);
+      // In real application, this would be a link to your server
+      // Example: window.location.href = `/pdfs/${fileName}`;
+    }
+  </script>
+</body>
+</html>
