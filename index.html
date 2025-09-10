@@ -2,271 +2,206 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>StudyHub - Learn Smarter</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Student Dashboard</title>
   <style>
-    /* Basic Reset */
-    * {
+    body {
       margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
     }
 
-    body {
-      background-color: #f0f2f5;
-      color: #333;
+    header {
+      background: #1a73e8;
+      color: white;
+      padding: 1em;
+      text-align: center;
     }
 
     nav {
-      background: #4caf50;
-      color: white;
-      padding: 15px 20px;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    nav h1 {
-      font-size: 24px;
-    }
-
-    nav .profile {
-      cursor: pointer;
-    }
-
-    .search-bar {
-      margin: 20px auto;
-      text-align: center;
-    }
-
-    .search-bar input {
-      padding: 12px;
-      width: 60%;
-      max-width: 500px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      font-size: 16px;
-    }
-
-    .materials {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 30px 10px;
-    }
-
-    .material {
-      background: white;
-      margin: 15px;
-      padding: 15px;
-      border-radius: 10px;
-      width: 250px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
-    }
-
-    .material:hover {
-      transform: scale(1.03);
-    }
-
-    .material img {
-      width: 100%;
-      height: 140px;
-      object-fit: cover;
-      border-radius: 6px;
-    }
-
-    .material h3 {
-      margin: 10px 0 5px;
-      color: #4caf50;
-    }
-
-    .material p {
-      font-size: 14px;
-      min-height: 50px;
-    }
-
-    .material button {
-      margin-top: 10px;
-      background: #4caf50;
-      color: white;
-      border: none;
-      padding: 8px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    .video-section {
-      margin: 40px auto;
-      text-align: center;
-      padding: 20px;
-    }
-
-    .video-section h2 {
-      margin-bottom: 15px;
-      color: #333;
-    }
-
-    .video-section iframe {
-      width: 90%;
-      max-width: 700px;
-      height: 400px;
-      border-radius: 10px;
-    }
-
-    .profile-modal {
-      position: fixed;
-      top: 20%;
-      left: 50%;
-      transform: translateX(-50%);
+      justify-content: space-around;
       background: #fff;
-      padding: 20px;
-      width: 300px;
-      display: none;
-      border-radius: 10px;
-      z-index: 1000;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      padding: 0.5em;
+      border-bottom: 1px solid #ddd;
     }
 
-    .profile-modal h2 {
-      margin-bottom: 10px;
-      color: #333;
+    nav a {
+      color: #1a73e8;
+      text-decoration: none;
+      font-weight: bold;
     }
 
-    .profile-modal label {
-      display: block;
-      margin-top: 10px;
-      font-size: 14px;
-      color: #444;
+    .container {
+      display: flex;
+      padding: 1em;
     }
 
-    .profile-modal input {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border: 1px solid #ccc;
+    .sidebar {
+      width: 20%;
+      padding: 1em;
+      background: #fff;
+      border-right: 1px solid #ddd;
+    }
+
+    .content {
+      flex: 1;
+      padding: 1em;
+    }
+
+    .card {
+      background: white;
+      padding: 1em;
+      margin-bottom: 1em;
       border-radius: 5px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
 
-    .close-btn {
-      background: red;
+    .card h3 {
+      margin-top: 0;
+    }
+
+    .search-box {
+      margin-bottom: 1em;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 0.5em;
+      margin-top: 0.5em;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .pdf-list, .video-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .pdf-list li, .video-list li {
+      padding: 0.5em 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .btn {
+      background: #1a73e8;
       color: white;
-      padding: 5px 10px;
-      margin-top: 15px;
+      padding: 0.4em 1em;
       border: none;
+      border-radius: 3px;
       cursor: pointer;
-      float: right;
     }
 
-    @media(max-width: 600px) {
-      .material {
-        width: 90%;
+    .btn:hover {
+      background: #0c5ed7;
+    }
+
+    .profile-settings input {
+      display: block;
+      margin: 0.5em 0;
+      padding: 0.5em;
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
       }
 
-      .video-section iframe {
-        height: 250px;
-      }
-
-      .search-bar input {
-        width: 90%;
+      .sidebar {
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- Navbar -->
-  <nav>
-    <h1>StudyHub</h1>
-    <div class="profile" onclick="toggleProfile()">👤 Profile</div>
-  </nav>
+<header>
+  <h1>📘 Student Study Dashboard</h1>
+</header>
 
-  <!-- Search -->
-  <div class="search-bar">
-    <input type="text" id="searchInput" placeholder="Search study materials..." onkeyup="searchMaterials()">
-  </div>
+<nav>
+  <a href="#" onclick="showSection('dashboard')">Dashboard</a>
+  <a href="#" onclick="showSection('materials')">Study Materials</a>
+  <a href="#" onclick="showSection('videos')">Video Classes</a>
+  <a href="#" onclick="showSection('profile')">Profile</a>
+</nav>
 
-  <!-- Materials Section -->
-  <div class="materials" id="materialList">
-    <!-- Example material card -->
-    <div class="material" data-title="Mathematics">
-      <img src="https://source.unsplash.com/featured/?mathematics,study" alt="Math">
-      <h3>Mathematics</h3>
-      <p>Algebra, Calculus, Geometry, Trigonometry.</p>
-      <button onclick="alert('Purchased!')">Buy PDF - ₹49</button>
-    </div>
-    <div class="material" data-title="Physics">
-      <img src="https://source.unsplash.com/featured/?physics,science" alt="Physics">
-      <h3>Physics</h3>
-      <p>Mechanics, Optics, Electromagnetism, Quantum Physics.</p>
-      <button onclick="alert('Purchased!')">Buy PDF - ₹59</button>
-    </div>
-    <div class="material" data-title="Chemistry">
-      <img src="https://source.unsplash.com/featured/?chemistry,lab" alt="Chemistry">
-      <h3>Chemistry</h3>
-      <p>Organic, Inorganic & Physical Chemistry topics.</p>
-      <button onclick="alert('Purchased!')">Buy PDF - ₹45</button>
-    </div>
-    <div class="material" data-title="Biology">
-      <img src="https://source.unsplash.com/featured/?biology,plants" alt="Biology">
-      <h3>Biology</h3>
-      <p>Genetics, Cell Biology, Anatomy, Zoology.</p>
-      <button onclick="alert('Purchased!')">Buy PDF - ₹39</button>
-    </div>
-    <div class="material" data-title="History">
-      <img src="https://source.unsplash.com/featured/?history,books" alt="History">
-      <h3>History</h3>
-      <p>World Wars, Ancient Civilizations, Indian History.</p>
-      <button onclick="alert('Purchased!')">Buy PDF - ₹35</button>
-    </div>
-    <div class="material" data-title="Computer Science">
-      <img src="https://source.unsplash.com/featured/?computer,code" alt="Computer Science">
-      <h3>Computer Science</h3>
-      <p>Programming, Data Structures, AI Basics.</p>
-      <button onclick="alert('Purchased!')">Buy PDF - ₹60</button>
+<div class="container">
+  <div class="sidebar">
+    <h3>Search Materials</h3>
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="Search PDFs..." onkeyup="searchMaterials()">
     </div>
   </div>
 
-  <!-- Video Section -->
-  <div class="video-section">
-    <h2>🎥 Featured Class: Learn Python Programming</h2>
-    <iframe src="https://www.youtube.com/embed/_uQrJ0TkZlc" frameborder="0" allowfullscreen></iframe>
+  <div class="content">
+
+    <!-- Dashboard Section -->
+    <div id="dashboard" class="card section">
+      <h3>Welcome back!</h3>
+      <p>Choose from a variety of subjects, download study materials, and attend video classes.</p>
+    </div>
+
+    <!-- Study Materials Section -->
+    <div id="materials" class="card section" style="display:none;">
+      <h3>Study Materials (PDFs)</h3>
+      <ul class="pdf-list" id="pdfList">
+        <li><strong>Mathematics - Algebra.pdf</strong> <button class="btn" onclick="purchase('Algebra.pdf')">Buy ₹20</button></li>
+        <li><strong>Physics - Mechanics.pdf</strong> <button class="btn" onclick="purchase('Mechanics.pdf')">Buy ₹15</button></li>
+        <li><strong>Chemistry - Organic.pdf</strong> <button class="btn" onclick="purchase('Organic.pdf')">Buy ₹25</button></li>
+        <li><strong>Biology - Genetics.pdf</strong> <button class="btn" onclick="purchase('Genetics.pdf')">Buy ₹10</button></li>
+      </ul>
+    </div>
+
+    <!-- Video Classes Section -->
+    <div id="videos" class="card section" style="display:none;">
+      <h3>Video Classes</h3>
+      <ul class="video-list">
+        <li><strong>Algebra Basics</strong><br><video controls width="100%"><source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">Video not supported.</video></li>
+        <li><strong>Newton's Laws</strong><br><video controls width="100%"><source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">Video not supported.</video></li>
+      </ul>
+    </div>
+
+    <!-- Profile Section -->
+    <div id="profile" class="card section" style="display:none;">
+      <h3>User Profile</h3>
+      <div class="profile-settings">
+        <label>Name</label>
+        <input type="text" value="John Doe">
+        <label>Email</label>
+        <input type="email" value="john@example.com">
+        <label>Password</label>
+        <input type="password" value="password123">
+        <button class="btn">Update Profile</button>
+      </div>
+    </div>
+
   </div>
+</div>
 
-  <!-- Profile Modal -->
-  <div class="profile-modal" id="profileModal">
-    <h2>User Profile</h2>
-    <label>Name</label>
-    <input type="text" value="John Doe">
-    <label>Email</label>
-    <input type="email" value="john@example.com">
-    <label>Password</label>
-    <input type="password" value="******">
-    <button class="close-btn" onclick="toggleProfile()">Close</button>
-  </div>
+<script>
+  function showSection(id) {
+    const sections = document.querySelectorAll('.section');
+    sections.forEach(section => section.style.display = 'none');
+    document.getElementById(id).style.display = 'block';
+  }
 
-  <!-- JavaScript -->
-  <script>
-    function toggleProfile() {
-      const modal = document.getElementById("profileModal");
-      modal.style.display = modal.style.display === "block" ? "none" : "block";
-    }
+  function purchase(itemName) {
+    alert("You have purchased: " + itemName + " 🎉");
+  }
 
-    function searchMaterials() {
-      const input = document.getElementById('searchInput').value.toLowerCase();
-      const materials = document.querySelectorAll('.material');
-
-      materials.forEach(mat => {
-        const title = mat.getAttribute('data-title').toLowerCase();
-        if (title.includes(input)) {
-          mat.style.display = 'block';
-        } else {
-          mat.style.display = 'none';
-        }
-      });
-    }
-  </script>
+  function searchMaterials() {
+    let input = document.getElementById("searchInput").value.toLowerCase();
+    let items = document.querySelectorAll("#pdfList li");
+    items.forEach(item => {
+      let text = item.textContent.toLowerCase();
+      item.style.display = text.includes(input) ? "block" : "none";
+    });
+  }
+</script>
 
 </body>
 </html>
