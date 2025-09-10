@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>StudyHub - Student Dashboard</title>
+  <title>StudyHub - Learn Smarter</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    /* --------- BASIC RESET --------- */
+    /* Basic Reset */
     * {
       margin: 0;
       padding: 0;
@@ -14,16 +14,13 @@
     }
 
     body {
-      background-image: url('https://images.unsplash.com/photo-1584697964382-89d3530fb10f?auto=format&fit=crop&w=1350&q=80');
-      background-size: cover;
-      background-attachment: fixed;
-      color: #fff;
-      min-height: 100vh;
+      background-color: #f0f2f5;
+      color: #333;
     }
 
-    /* --------- NAVIGATION --------- */
     nav {
-      background: rgba(0, 0, 0, 0.7);
+      background: #4caf50;
+      color: white;
       padding: 15px 20px;
       display: flex;
       justify-content: space-between;
@@ -31,56 +28,63 @@
     }
 
     nav h1 {
-      color: #4caf50;
+      font-size: 24px;
     }
 
     nav .profile {
       cursor: pointer;
     }
 
-    /* --------- SEARCH BAR --------- */
     .search-bar {
       margin: 20px auto;
       text-align: center;
     }
 
     .search-bar input {
-      padding: 10px;
+      padding: 12px;
       width: 60%;
       max-width: 500px;
       border-radius: 5px;
-      border: none;
+      border: 1px solid #ccc;
       font-size: 16px;
     }
 
-    /* --------- STUDY MATERIAL SECTION --------- */
     .materials {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      padding: 20px;
+      padding: 30px 10px;
     }
 
     .material {
-      background: rgba(0, 0, 0, 0.6);
+      background: white;
       margin: 15px;
-      padding: 20px;
+      padding: 15px;
       border-radius: 10px;
       width: 250px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
       transition: transform 0.2s;
     }
 
     .material:hover {
-      transform: scale(1.05);
+      transform: scale(1.03);
+    }
+
+    .material img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 6px;
     }
 
     .material h3 {
-      margin-bottom: 10px;
+      margin: 10px 0 5px;
       color: #4caf50;
     }
 
     .material p {
       font-size: 14px;
+      min-height: 50px;
     }
 
     .material button {
@@ -93,10 +97,15 @@
       cursor: pointer;
     }
 
-    /* --------- VIDEO CLASS SECTION --------- */
     .video-section {
       margin: 40px auto;
       text-align: center;
+      padding: 20px;
+    }
+
+    .video-section h2 {
+      margin-bottom: 15px;
+      color: #333;
     }
 
     .video-section iframe {
@@ -106,35 +115,37 @@
       border-radius: 10px;
     }
 
-    /* --------- PROFILE MODAL --------- */
     .profile-modal {
       position: fixed;
       top: 20%;
       left: 50%;
       transform: translateX(-50%);
-      background: #222;
+      background: #fff;
       padding: 20px;
       width: 300px;
       display: none;
       border-radius: 10px;
       z-index: 1000;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     }
 
     .profile-modal h2 {
       margin-bottom: 10px;
+      color: #333;
     }
 
     .profile-modal label {
       display: block;
       margin-top: 10px;
       font-size: 14px;
+      color: #444;
     }
 
     .profile-modal input {
       width: 100%;
       padding: 8px;
       margin-top: 5px;
-      border: none;
+      border: 1px solid #ccc;
       border-radius: 5px;
     }
 
@@ -148,7 +159,6 @@
       float: right;
     }
 
-    /* --------- RESPONSIVE --------- */
     @media(max-width: 600px) {
       .material {
         width: 90%;
@@ -166,60 +176,77 @@
 </head>
 <body>
 
-  <!-- NAV -->
+  <!-- Navbar -->
   <nav>
     <h1>StudyHub</h1>
     <div class="profile" onclick="toggleProfile()">👤 Profile</div>
   </nav>
 
-  <!-- SEARCH -->
+  <!-- Search -->
   <div class="search-bar">
     <input type="text" id="searchInput" placeholder="Search study materials..." onkeyup="searchMaterials()">
   </div>
 
-  <!-- MATERIALS -->
+  <!-- Materials Section -->
   <div class="materials" id="materialList">
+    <!-- Example material card -->
     <div class="material" data-title="Mathematics">
+      <img src="https://source.unsplash.com/featured/?mathematics,study" alt="Math">
       <h3>Mathematics</h3>
-      <p>Algebra, Calculus, Trigonometry, and more.</p>
+      <p>Algebra, Calculus, Geometry, Trigonometry.</p>
       <button onclick="alert('Purchased!')">Buy PDF - ₹49</button>
     </div>
     <div class="material" data-title="Physics">
+      <img src="https://source.unsplash.com/featured/?physics,science" alt="Physics">
       <h3>Physics</h3>
-      <p>Mechanics, Optics, Thermodynamics.</p>
+      <p>Mechanics, Optics, Electromagnetism, Quantum Physics.</p>
       <button onclick="alert('Purchased!')">Buy PDF - ₹59</button>
     </div>
     <div class="material" data-title="Chemistry">
+      <img src="https://source.unsplash.com/featured/?chemistry,lab" alt="Chemistry">
       <h3>Chemistry</h3>
-      <p>Organic, Inorganic, and Physical Chemistry.</p>
+      <p>Organic, Inorganic & Physical Chemistry topics.</p>
       <button onclick="alert('Purchased!')">Buy PDF - ₹45</button>
     </div>
+    <div class="material" data-title="Biology">
+      <img src="https://source.unsplash.com/featured/?biology,plants" alt="Biology">
+      <h3>Biology</h3>
+      <p>Genetics, Cell Biology, Anatomy, Zoology.</p>
+      <button onclick="alert('Purchased!')">Buy PDF - ₹39</button>
+    </div>
+    <div class="material" data-title="History">
+      <img src="https://source.unsplash.com/featured/?history,books" alt="History">
+      <h3>History</h3>
+      <p>World Wars, Ancient Civilizations, Indian History.</p>
+      <button onclick="alert('Purchased!')">Buy PDF - ₹35</button>
+    </div>
     <div class="material" data-title="Computer Science">
+      <img src="https://source.unsplash.com/featured/?computer,code" alt="Computer Science">
       <h3>Computer Science</h3>
       <p>Programming, Data Structures, AI Basics.</p>
       <button onclick="alert('Purchased!')">Buy PDF - ₹60</button>
     </div>
   </div>
 
-  <!-- VIDEO SECTION -->
+  <!-- Video Section -->
   <div class="video-section">
-    <h2>🎥 Live Class: Introduction to AI</h2>
-    <iframe src="https://www.youtube.com/embed/2ePf9rue1Ao" frameborder="0" allowfullscreen></iframe>
+    <h2>🎥 Featured Class: Learn Python Programming</h2>
+    <iframe src="https://www.youtube.com/embed/_uQrJ0TkZlc" frameborder="0" allowfullscreen></iframe>
   </div>
 
-  <!-- PROFILE MODAL -->
+  <!-- Profile Modal -->
   <div class="profile-modal" id="profileModal">
     <h2>User Profile</h2>
     <label>Name</label>
     <input type="text" value="John Doe">
     <label>Email</label>
     <input type="email" value="john@example.com">
-    <label>Change Password</label>
-    <input type="password">
+    <label>Password</label>
+    <input type="password" value="******">
     <button class="close-btn" onclick="toggleProfile()">Close</button>
   </div>
 
-  <!-- JS -->
+  <!-- JavaScript -->
   <script>
     function toggleProfile() {
       const modal = document.getElementById("profileModal");
